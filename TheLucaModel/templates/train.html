@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Train AI Model</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #eef2f7;
+    }
+    #training-container {
+      width: 500px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+  <script>
+    async function trainModel() {
+      const intent = document.getElementById('intent').value;
+      const patterns = document.getElementById('patterns').value.split(',');
+
+      if (!intent || patterns.length === 0) {
+        alert('Please provide intent and patterns.');
+        return;
+      }
+
+      const response = await fetch('/train-model', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ intent, patterns })
+      });
+
+      const data = await response.json();
+      alert(data.message);
+    }
+  </script>
+</head>
+<body>
+  <div id="training-container">
+    <h2>Train the AI Model</h2>
+    <label for="intent">Intent:</label>
+    <input id="intent" type="text" placeholder="Enter intent (e.g., greet)">
+
+    <label for="patterns">Patterns (comma-separated):</label>
+    <textarea id="patterns" placeholder="Hi, Hello, Hey"></textarea>
+
+    <button onclick="trainModel()">Train Model</button>
+  </div>
+</body>
+</html>

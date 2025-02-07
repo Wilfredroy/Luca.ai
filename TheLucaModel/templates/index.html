@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversational AI Chat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f3f4f6;
+    }
+    #chat-container {
+      width: 400px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    #messages {
+      height: 300px;
+      overflow-y: scroll;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    .user-message {
+      text-align: right;
+      color: blue;
+    }
+    .bot-message {
+      text-align: left;
+      color: green;
+    }
+    #user-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+  </style>
+  <script>
+    async function sendMessage() {
+      const userMessage = document.getElementById('user-input').value;
+      if (!userMessage) return;
+      const messagesContainer = document.getElementById('messages');
+
+      // Display user message
+      messagesContainer.innerHTML += `<div class='user-message'>${userMessage}</div>`;
+      document.getElementById('user-input').value = '';
+
+      // Call backend API
+      const response = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage })
+      });
+
+      const data = await response.json();
+      const botMessage = data.response;
+
+      // Display bot response
+      messagesContainer.innerHTML += `<div class='bot-message'>${botMessage}</div>`;
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  </script>
+</head>
+<body>
+  <div id="chat-container">
+    <h2>AI Chat</h2>
+    <div id="messages"></div>
+    <input id="user-input" type="text" placeholder="Type a message..." onkeydown="if(event.key==='Enter') sendMessage()">
+  </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+[
+    {
+        "input": "im feeling sad",
+        "emotion": "sad"
+    },
+    {
+        "input": "im feeling sad",
+        "emotion": "sad"
+    },
+    {
+        "input": "im so happy today",
+        "emotion": "happy"
+    },
+    {
+        "input": "im sad luca",
+        "emotion": "sad"
+    },
+    {
+        "input": "im sad",
+        "emotion": "sad"
+    },
+    {
+        "input": "im sad",
+        "emotion": "sad"
+    },
+    {
+        "input": "im sad",
+        "emotion": "sad"
+    },
+    {
+        "input": "im so sad",
+        "emotion": "sad"
+    },
+    {
+        "input": "im sad",
+        "emotion": "sad"
+    }
+]
